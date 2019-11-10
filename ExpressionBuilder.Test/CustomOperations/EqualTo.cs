@@ -28,6 +28,11 @@ namespace ExpressionBuilder.Test.CustomOperations
             return Expression.Equal(member, constant1);
         }
 
+        public Expression GetExpression(Expression member, ConstantExpression constant1, ConstantExpression constant2)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override string ToString()
         {
             return Name;

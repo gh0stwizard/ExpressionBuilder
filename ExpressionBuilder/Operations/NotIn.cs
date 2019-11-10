@@ -27,5 +27,19 @@ namespace ExpressionBuilder.Operations
             var contains = Expression.Call(constant1, inInfo, member);
             return Expression.Not(contains);
         }
+
+        /// <inheritdoc />
+        public override Expression GetExpression(Expression member, ConstantExpression constant1, ConstantExpression constant2)
+        {
+            if (!(constant1.Value is IList) || !constant1.Value.GetType().IsGenericType)
+            {
+                throw new ArgumentException("The 'NotIn' operation only supports lists as parameters.");
+            }
+
+            var type = constant1.Value.GetType();
+            var inInfo = type.GetMethod("Contains", new[] { type.GetGenericArguments()[0] });
+            var contains = Expression.Call(constant1, inInfo, member);
+            return Expression.Not(contains);
+        }
     }
 }

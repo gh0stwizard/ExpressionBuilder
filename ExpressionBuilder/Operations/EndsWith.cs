@@ -23,5 +23,15 @@ namespace ExpressionBuilder.Operations
             return Expression.Call(member.TrimToLower(), endsWithMethod, constant)
                    .AddNullCheck(member);
         }
+
+
+        /// <inheritdoc />
+        public override Expression GetExpression(Expression member, ConstantExpression constant1, ConstantExpression constant2)
+        {
+            Expression constant = constant1.TrimToLower();
+
+            return Expression.Call(member.TrimToLower(), endsWithMethod, constant)
+                   .AddNullCheck(member);
+        }
     }
 }

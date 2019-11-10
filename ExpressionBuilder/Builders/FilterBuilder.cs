@@ -85,6 +85,14 @@ namespace ExpressionBuilder.Builders
         {
             Expression resultExpr = null;
             var memberName = propertyName ?? statement.PropertyId;
+
+            if (memberName == "")
+            {
+                return statement.Operation.GetExpression(param,
+                    Expression.Constant(statement.Value),
+                    Expression.Constant(statement.Value2));
+            }
+
             MemberExpression member = param.GetMemberExpression(memberName);
 
             if (Nullable.GetUnderlyingType(member.Type) != null && statement.Value != null)

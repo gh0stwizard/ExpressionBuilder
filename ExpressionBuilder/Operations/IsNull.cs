@@ -17,5 +17,11 @@ namespace ExpressionBuilder.Operations
         {
             return Expression.Equal(member, Expression.Constant(null));
         }
+
+        /// <inheritdoc />
+        public override Expression GetExpression(Expression member, ConstantExpression constant1, ConstantExpression constant2)
+        {
+            return Expression.Equal(member, Expression.Constant(null));
+        }
     }
 }

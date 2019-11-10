@@ -15,6 +15,7 @@
     <Compile Include="..\ExpressionBuilder.Test\Integration\PropertyLoaderTest.cs" Link="Integration\PropertyLoaderTest.cs" />
     <Compile Include="..\ExpressionBuilder.Test\Models\Contact.cs" Link="Models\Contact.cs" />
     <Compile Include="..\ExpressionBuilder.Test\Models\Person.cs" Link="Models\Person.cs" />
+    <Compile Include="..\ExpressionBuilder.Test\Models\SimpleList.cs" Link="Models\SimpleList.cs" />
     <Compile Include="..\ExpressionBuilder.Test\Resources\Operations.Designer.cs" Link="Resources\Operations.Designer.cs" />
     <Compile Include="..\ExpressionBuilder.Test\Resources\Person.Designer.cs" Link="Resources\Person.Designer.cs" />
     <Compile Include="..\ExpressionBuilder.Test\Unit\FilterTest.cs" Link="Unit\FilterTest.cs" />

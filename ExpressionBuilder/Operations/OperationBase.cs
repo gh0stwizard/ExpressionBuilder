@@ -51,6 +51,12 @@ namespace ExpressionBuilder.Operations
         public abstract Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2);
 
         /// <inheritdoc />
+        public virtual Expression GetExpression(Expression member, ConstantExpression constant1, ConstantExpression constant2)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public override int GetHashCode()
         {
             return (Name != null ? Name.GetHashCode() : 0);

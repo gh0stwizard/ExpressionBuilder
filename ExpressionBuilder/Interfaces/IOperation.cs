@@ -50,6 +50,15 @@ namespace ExpressionBuilder.Interfaces
         Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2);
 
         /// <summary>
+        /// Returns the expression generated through this operation.
+        /// </summary>
+        /// <param name="member">Expression</param>
+        /// <param name="constant1">The operation's first constant value.</param>
+        /// <param name="constant2">The operation's second constant value.</param>
+        /// <returns></returns>
+        Expression GetExpression(Expression member, ConstantExpression constant1, ConstantExpression constant2);
+
+        /// <summary>
         /// Returns a string representation of the operation.
         /// </summary>
         string ToString();

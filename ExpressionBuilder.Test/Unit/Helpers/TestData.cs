@@ -10,6 +10,8 @@ namespace ExpressionBuilder.Test.Unit.Helpers
 
         public List<Company> Companies { get; private set; }
 
+        public List<SimpleList> SimpleLists { get; private set; }
+
         public TestData()
         {
             var owner = new Person { Name = "John Smith", Gender = PersonGender.Male, Birth = new Person.BirthData { Date = new DateTime(1965, 8, 28), Country = "USA" } };
@@ -49,6 +51,31 @@ namespace ExpressionBuilder.Test.Unit.Helpers
                     person.Contacts.Add(new Contact { Type = ContactType.Email, Value = email, Comments = person.Name + "'s email" });
                 }
             }
+
+
+            SimpleLists = new List<SimpleList>()
+            {
+                new SimpleList {
+                    Strings = new List<string>() { { "abc" }, { "def" } },
+                    Integers = new List<int>() { 1, 2, 3 },
+                    Booleans = new List<bool>() { true, true }
+                },
+                new SimpleList {
+                    Strings = new List<string>() { { "abc" }, { "xyz" } },
+                    Integers = new List<int>() { 100, 200, 300 },
+                    Booleans = new List<bool>() { true, false }
+                },
+                new SimpleList {
+                    Strings = new List<string>() { { null }, { "def" } },
+                    Integers = new List<int>() { 100 },
+                    Booleans = new List<bool>() { false, false }
+                },
+                new SimpleList {
+                    Strings = new List<string>() { { null }, { "" }, { "    " } },
+                    Integers = new List<int>() { 1, 100 },
+                    Booleans = new List<bool>() { false, true }
+                },
+            };
         }
     }
 }

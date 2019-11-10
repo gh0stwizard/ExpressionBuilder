@@ -17,5 +17,11 @@ namespace ExpressionBuilder.Operations
         {
             return Expression.LessThanOrEqual(member, constant1);
         }
+
+        /// <inheritdoc />
+        public override Expression GetExpression(Expression member, ConstantExpression constant1, ConstantExpression constant2)
+        {
+            return Expression.LessThanOrEqual(member, constant1);
+        }
     }
 }

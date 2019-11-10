@@ -50,6 +50,11 @@ namespace ExpressionBuilder.Test.CustomOperations
                 );
         }
 
+        public Expression GetExpression(Expression member, ConstantExpression constant1, ConstantExpression constant2)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override string ToString()
         {
             return Name;

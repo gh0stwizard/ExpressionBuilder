@@ -44,6 +44,17 @@ namespace ExpressionBuilder.Common
         }
 
         /// <summary>
+        /// Applies the string Trim and ToLower methods to an Expression.
+        /// </summary>
+        /// <param name="member">Member to which to methods will be applied.</param>
+        /// <returns></returns>
+        public static Expression TrimToLower(this Expression member)
+        {
+            var trimMemberCall = Expression.Call(member, trimMethod);
+            return Expression.Call(trimMemberCall, toLowerMethod);
+        }
+
+        /// <summary>
         /// Applies the string Trim and ToLower methods to an ExpressionMember.
         /// </summary>
         /// <param name="constant">Constant to which to methods will be applied.</param>
@@ -61,6 +72,18 @@ namespace ExpressionBuilder.Common
         /// <param name="member">Member that will be checked.</param>
         /// <returns></returns>
         public static Expression AddNullCheck(this Expression expression, MemberExpression member)
+        {
+            Expression memberIsNotNull = Expression.NotEqual(member, Expression.Constant(null));
+            return Expression.AndAlso(memberIsNotNull, expression);
+        }
+
+        /// <summary>
+        /// Adds a "null check" to the expression (before the original one).
+        /// </summary>
+        /// <param name="expression">Expression to which the null check will be pre-pended.</param>
+        /// <param name="member">Member that will be checked.</param>
+        /// <returns></returns>
+        public static Expression AddNullCheck(this Expression expression, Expression member)
         {
             Expression memberIsNotNull = Expression.NotEqual(member, Expression.Constant(null));
             return Expression.AndAlso(memberIsNotNull, expression);

@@ -21,5 +21,15 @@ namespace ExpressionBuilder.Operations
                 Expression.NotEqual(member, exprNull),
                 Expression.NotEqual(member.TrimToLower(), exprEmpty));
         }
+
+        /// <inheritdoc />
+        public override Expression GetExpression(Expression member, ConstantExpression constant1, ConstantExpression constant2)
+        {
+            Expression exprNull = Expression.Constant(null);
+            Expression exprEmpty = Expression.Constant(string.Empty);
+            return Expression.AndAlso(
+                Expression.NotEqual(member, exprNull),
+                Expression.NotEqual(member.TrimToLower(), exprEmpty));
+        }
     }
 }

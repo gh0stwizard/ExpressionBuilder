@@ -75,6 +75,7 @@
     <Compile Include="Integration\PropertyLoaderTest.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\SimpleList.cs" />
     <Compile Include="Resources\Operations.Designer.cs">
       <DependentUpon>Operations.resx</DependentUpon>
       <AutoGen>True</AutoGen>

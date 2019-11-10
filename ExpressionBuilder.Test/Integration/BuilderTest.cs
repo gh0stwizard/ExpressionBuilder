@@ -45,6 +45,22 @@ namespace ExpressionBuilder.Test.Integration
             }
         }
 
+
+        private List<SimpleList> _simpleLists;
+
+        public List<SimpleList> SimpleLists
+        {
+            get
+            {
+                if (_simpleLists == null)
+                {
+                    _simpleLists = new TestData().SimpleLists;
+                }
+
+                return _simpleLists;
+            }
+        }
+
         [TestCase(TestName = "Build expression from an empty filter: should return all records")]
         public void BuilderWithEmptyFilter()
         {
@@ -408,5 +424,272 @@ namespace ExpressionBuilder.Test.Integration
 
             Assert.That(companies, Is.EquivalentTo(solution));
         }
+
+
+        #region List of strings
+
+        [TestCase(TestName = "List of strings (StartsWith)", Category = "NestedProperties")]
+        public void SimpleListStringsStartsWith()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Strings[]", Operation.StartsWith, "a");
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Strings.Any(x => x != null && x.StartsWith("a")));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of strings (EndsWith)", Category = "NestedProperties")]
+        public void SimpleListStringsEndsWith()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Strings[]", Operation.EndsWith, "z");
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Strings.Any(x => x != null && x.EndsWith("z")));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of strings (EqualTo)", Category = "NestedProperties")]
+        public void SimpleListStringsEqualTo()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Strings[]", Operation.EqualTo, "def");
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Strings.Any(x => x != null && x == "def"));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of strings (NotEqualTo)", Category = "NestedProperties")]
+        public void SimpleListStringsNotEqualTo()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Strings[]", Operation.NotEqualTo, "def");
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Strings.Any(x => x != null && x != "def"));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of strings (Contains)", Category = "NestedProperties")]
+        public void SimpleListStringsContains()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Strings[]", Operation.Contains, "de");
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Strings.Any(x => x != null && x.Contains("de")));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of strings (DoesNotContain)", Category = "NestedProperties")]
+        public void SimpleListStringsDoesNotContain()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Strings[]", Operation.DoesNotContain, "de");
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Strings.Any(x => x != null && !x.Contains("de")));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of strings (IsEmpty)", Category = "NestedProperties")]
+        public void SimpleListStringsIsEmpty()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Strings[]", Operation.IsEmpty);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Strings.Any(x => x != null && x == ""));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of strings (IsNotEmpty)", Category = "NestedProperties")]
+        public void SimpleListStringsIsNotEmpty()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Strings[]", Operation.IsNotEmpty);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Strings.Any(x => x != null && x.Trim().ToLower() != string.Empty));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of strings (IsNull)", Category = "NestedProperties")]
+        public void SimpleListStringsIsNull()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Strings[]", Operation.IsNull);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Strings.Any(x => x == null));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of strings (IsNotNull)", Category = "NestedProperties")]
+        public void SimpleListStringsIsNotNull()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Strings[]", Operation.IsNotNull);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Strings.Any(x => x != null));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of strings (IsNullOrWhiteSpace)", Category = "NestedProperties")]
+        public void SimpleListStringsIsNullOrWhiteSpace()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Strings[]", Operation.IsNullOrWhiteSpace);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Strings.Any(x => x == null || x.Trim().ToLower() == string.Empty));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of strings (IsNotNullNorWhiteSpace)", Category = "NestedProperties")]
+        public void SimpleListStringsIsNotNullNorWhiteSpace()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Strings[]", Operation.IsNotNullNorWhiteSpace);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Strings.Any(x => x != null && x.Trim().ToLower() != string.Empty));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        #endregion
+
+        #region List of integers
+
+        [TestCase(TestName = "List of integeres (EqualTo)", Category = "NestedProperties")]
+        public void SimpleListIntegersEqualTo()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Integers[]", Operation.EqualTo, 100);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Integers.Any(x => x == 100));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of integeres (NotEqualTo)", Category = "NestedProperties")]
+        public void SimpleListIntegersNotEqualTo()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Integers[]", Operation.NotEqualTo, 100);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Integers.Any(x => x != 100));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of integeres (Between)", Category = "NestedProperties")]
+        public void SimpleListIntegersBetween()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Integers[]", Operation.Between, 100, 200);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Integers.Any(x => x >= 100 && x <= 200));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of integeres (GreaterThan)", Category = "NestedProperties")]
+        public void SimpleListIntegersGreaterThan()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Integers[]", Operation.GreaterThan, 200);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Integers.Any(x => x > 200));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of integeres (GreaterThanOrEqualTo)", Category = "NestedProperties")]
+        public void SimpleListIntegersGreaterThanOrEqualTo()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Integers[]", Operation.GreaterThanOrEqualTo, 300);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Integers.Any(x => x >= 300));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of integeres (LessThan)", Category = "NestedProperties")]
+        public void SimpleListIntegersLessThan()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Integers[]", Operation.LessThan, 200);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Integers.Any(x => x < 200));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of integeres (LessThanOrEqualTo)", Category = "NestedProperties")]
+        public void SimpleListIntegersLessThanOrEqualTo()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Integers[]", Operation.LessThanOrEqualTo, 200);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Integers.Any(x => x <= 200));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of integeres (In)", Category = "NestedProperties")]
+        public void SimpleListIntegersIn()
+        {
+            var filter = new Filter<SimpleList>();
+            var range = new int[] { 3, 300 };
+            filter.By("Integers[]", Operation.In, range);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Integers.Any(x => range.Contains(x)));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of integeres (NotIn)", Category = "NestedProperties")]
+        public void SimpleListIntegersNotIn()
+        {
+            var filter = new Filter<SimpleList>();
+            var range = new int[] { 3, 300 };
+            filter.By("Integers[]", Operation.NotIn, range);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Integers.Any(x => !range.Contains(x)));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        #endregion
+
+        #region List of booleans
+
+        [TestCase(TestName = "List of booleans (EqualTo)", Category = "NestedProperties")]
+        public void SimpleListBooleansEqualTo()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Booleans[]", Operation.EqualTo, true);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Booleans.Any(x => x == true));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of booleans (NotEqualTo)", Category = "NestedProperties")]
+        public void SimpleListBooleansNotEqualTo()
+        {
+            var filter = new Filter<SimpleList>();
+            filter.By("Booleans[]", Operation.NotEqualTo, true);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Booleans.Any(x => x != true));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of booleans (In)", Category = "NestedProperties")]
+        public void SimpleListBooleansIn()
+        {
+            var filter = new Filter<SimpleList>();
+            var range = new bool[] { true };
+            filter.By("Booleans[]", Operation.In, range);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Booleans.Any(x => range.Contains(x)));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        [TestCase(TestName = "List of booleans (NotIn)", Category = "NestedProperties")]
+        public void SimpleListBooleansNotIn()
+        {
+            var filter = new Filter<SimpleList>();
+            var range = new bool[] { true };
+            filter.By("Booleans[]", Operation.NotIn, range);
+            var result = SimpleLists.Where(filter);
+            var solution = SimpleLists.Where(l => l.Booleans.Any(x => !range.Contains(x)));
+            Assert.That(result, Is.EquivalentTo(solution));
+        }
+
+        #endregion
     }
 }
